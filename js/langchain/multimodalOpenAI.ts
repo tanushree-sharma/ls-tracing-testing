@@ -1,6 +1,6 @@
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
-import { getGenerateImageMessage } from "./multimodalMessages";
+import { getPDFInputMessage } from "./multimodalMessages";
 
 async function main() {
   const oai = new ChatOpenAI({
@@ -9,7 +9,8 @@ async function main() {
 
   // await oai.invoke([getImageUrlMessage()]);
   // await oai.invoke([getImageBase64Message()]);
-  await oai.invoke([getGenerateImageMessage()]);
+  // await oai.invoke([getGenerateImageMessage()]);
+  await oai.invoke([getPDFInputMessage()]);
 }
 
 main();

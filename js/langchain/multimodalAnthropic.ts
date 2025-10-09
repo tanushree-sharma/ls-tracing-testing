@@ -1,6 +1,6 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import "dotenv/config";
-import { getGenerateImageMessage } from "./multimodalMessages";
+import { getPDFInputMessage } from "./multimodalMessages";
 
 async function main() {
   const claude = new ChatAnthropic({
@@ -9,7 +9,8 @@ async function main() {
 
   // await claude.invoke([getImageUrlMessage()]);
   // await claude.invoke([getImageBase64Message()]);
-  await claude.invoke([getGenerateImageMessage()]);
+  // await claude.invoke([getGenerateImageMessage()]);
+  await claude.invoke([getPDFInputMessage()]);
 }
 
 main();

@@ -5,7 +5,7 @@ import { tool } from "langchain";
 import { z } from "zod";
 
 const getWeather = tool(
-  (input) => {
+  (input: { location: string }) => {
     return `It's sunny in ${input.location}.`;
   },
   {

@@ -11,7 +11,7 @@ const Movie = z.object({
 
 async function main() {
   const oai = new ChatOpenAI({
-    model: "gpt-4o-mini",
+    model: "gpt-5",
   });
 
   const oaiWithStructuredOutput = oai.withStructuredOutput(Movie);
