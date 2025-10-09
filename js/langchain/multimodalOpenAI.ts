@@ -46,7 +46,7 @@ async function generateImage(oai: ChatOpenAI) {
     content: [
       {
         type: "text",
-        text: "Generate an image of a cat and return it as multimodal png block",
+        text: "Generate an image of a cartoon cat and return it as multimodal png block",
       },
     ],
   });

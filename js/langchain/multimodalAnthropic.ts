@@ -3,11 +3,7 @@ import "dotenv/config";
 import { HumanMessage } from "langchain";
 import { image } from "../resources/base64BufoApproval";
 
-async function main() {
-  const anthropic = new ChatAnthropic({
-    model: "claude-sonnet-4-5-20250929",
-  });
-
+async function inputImageUrl(claude: ChatAnthropic) {
   const messageWithImageUrl = new HumanMessage({
     content: [
       {
@@ -23,8 +19,10 @@ async function main() {
       },
     ],
   });
-  await anthropic.invoke([messageWithImageUrl]);
+  await claude.invoke([messageWithImageUrl]);
+}
 
+async function inputImageBase64(claude: ChatAnthropic) {
   const messageWithImageBase64 = new HumanMessage({
     content: [
       {
@@ -40,7 +38,29 @@ async function main() {
       },
     ],
   });
-  await anthropic.invoke([messageWithImageBase64]);
+  await claude.invoke([messageWithImageBase64]);
+}
+
+async function generateImage(claude: ChatAnthropic) {
+  const messageWithImage = new HumanMessage({
+    content: [
+      {
+        type: "text",
+        text: "Generate an image of a cartoon cat and return it as multimodal png block",
+      },
+    ],
+  });
+  await claude.invoke([messageWithImage]);
+}
+
+async function main() {
+  const claude = new ChatAnthropic({
+    model: "claude-sonnet-4-20250514",
+  });
+
+  // await inputImageUrl(oai);
+  // await inputImageBase64(oai);
+  await generateImage(claude);
 }
 
 main();
