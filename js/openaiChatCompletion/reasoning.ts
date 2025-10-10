@@ -7,13 +7,14 @@ const client = wrapOpenAI(new OpenAI());
 async function main() {
   // Using the Responses API (newer simplified API)
   const response = await client.chat.completions.create({
-    model: "gpt-4o",
+    model: "gpt-5",
     messages: [
       {
         role: "user",
         content: "What is the capital of France?",
       },
     ],
+    reasoning_effort: "high",
   });
 
   const responseMessage = response.choices[0].message;

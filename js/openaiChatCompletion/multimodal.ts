@@ -116,6 +116,42 @@ async function pdfExampleBase64() {
   console.log(response.choices[0].message.content);
 }
 
+async function audioInputExample() {
+  // Fetch an audio file and convert it to a base64 string
+  const url = "https://cdn.openai.com/API/docs/audio/alloy.wav";
+  const audioResponse = await fetch(url);
+  const buffer = await audioResponse.arrayBuffer();
+
+  // Convert ArrayBuffer to base64
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  const base64str = btoa(binary);
+
+  const response = await client.chat.completions.create({
+    model: "gpt-4o-audio-preview",
+    modalities: ["text", "audio"],
+    audio: { voice: "alloy", format: "wav" },
+    messages: [
+      {
+        role: "user",
+        content: [
+          { type: "text", text: "What is in this recording?" },
+          {
+            type: "input_audio",
+            input_audio: { data: base64str, format: "wav" },
+          },
+        ],
+      },
+    ],
+    store: true,
+  });
+
+  console.log(response.choices[0]);
+}
+
 async function audioOutputExample() {
   const response = await client.chat.completions.create({
     model: "gpt-4o-audio-preview",
@@ -130,11 +166,12 @@ async function audioOutputExample() {
 }
 
 async function main() {
-  await imageUrlExample();
-  await imageBase64Example();
-  await pdfUploadExample();
-  await pdfExampleBase64();
-  await audioOutputExample();
+  // await imageUrlExample();
+  // await imageBase64Example();
+  // await pdfUploadExample();
+  // await pdfExampleBase64()
+  await audioInputExample();
+  // await audioOutputExample();
 }
 
 main();
