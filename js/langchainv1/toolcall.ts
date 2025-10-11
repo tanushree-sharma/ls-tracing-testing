@@ -1,7 +1,5 @@
-import { ChatAnthropic } from "@langchain/anthropic";
-import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
-import { tool } from "langchain";
+import { initChatModel, tool } from "langchain";
 import { z } from "zod";
 
 // @ts-ignore
@@ -19,16 +17,16 @@ const getWeather = tool(
 );
 
 async function main() {
-  const oai = new ChatOpenAI({
-    model: "gpt-4o-mini",
+  const oai = await initChatModel("openai:gpt-5-nano", {
+    outputVersion: "v1",
   });
   const oaiWithTools = oai.bindTools([getWeather]);
 
   const oaiResponse = await oaiWithTools.invoke("What's the weather in Tokyo?");
   console.log(oaiResponse.tool_calls);
 
-  const anthro = new ChatAnthropic({
-    model: "claude-3-5-sonnet-latest",
+  const anthro = await initChatModel("anthropic:claude-sonnet-4-20250514", {
+    outputVersion: "v1",
   });
   const anthroWithTools = anthro.bindTools([getWeather]);
   const anthroResponse = await anthroWithTools.invoke(
