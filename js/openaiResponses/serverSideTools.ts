@@ -37,5 +37,3 @@ export async function main() {
   webSearchExample();
   codeExecutionExample();
 }
-
-main();
