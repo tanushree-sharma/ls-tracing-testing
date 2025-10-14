@@ -13,7 +13,7 @@ export async function main() {
   const oai = new ChatOpenAI({
     model: "gpt-5",
   });
-
+  // @ts-ignore
   const oaiWithStructuredOutput = oai.withStructuredOutput(Movie);
   const oaiResponse = await oaiWithStructuredOutput.invoke(
     "Tell me about the movie The Matrix"

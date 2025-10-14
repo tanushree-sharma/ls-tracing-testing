@@ -32,4 +32,5 @@ export const openaiChatCompletionMain = traceable(
   }
 );
 
+openaiChatCompletionMain();
 export const main = openaiChatCompletionMain;

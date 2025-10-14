@@ -166,10 +166,10 @@ async function audioOutputExample() {
 }
 
 export async function main() {
-  // await imageUrlExample();
-  // await imageBase64Example();
-  // await pdfUploadExample();
-  // await pdfExampleBase64()
+  await imageUrlExample();
+  await imageBase64Example();
+  await pdfUploadExample();
+  await pdfExampleBase64();
   await audioInputExample();
-  // await audioOutputExample();
+  await audioOutputExample();
 }

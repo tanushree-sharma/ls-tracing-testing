@@ -1,6 +1,9 @@
 import "dotenv/config";
 import { initChatModel } from "langchain";
-import { getPDFInputMessage } from "./multimodalMessages";
+import {
+  getImageBase64Message,
+  getImageUrlMessage,
+} from "./multimodalMessages";
 
 async function generateImage() {
   const oai = await initChatModel("openai:gpt-5-nano", {
@@ -24,8 +27,8 @@ export async function main() {
     outputVersion: "v1",
   });
 
-  // await oai.invoke([getImageUrlMessage()]);
-  // await oai.invoke([getImageBase64Message()]);
-  // await generateImage();
-  await oai.invoke([getPDFInputMessage()]);
+  await oai.invoke([getImageUrlMessage()]);
+  await oai.invoke([getImageBase64Message()]);
+  await generateImage();
+  // await oai.invoke([getPDFInputMessage()]);
 }

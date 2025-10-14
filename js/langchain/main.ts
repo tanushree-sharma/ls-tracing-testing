@@ -34,4 +34,5 @@ export const langchainMain = traceable(async function langchainMain() {
   console.log("\n=== All LangChain Examples Complete ===");
 });
 
+langchainMain();
 export const main = langchainMain;

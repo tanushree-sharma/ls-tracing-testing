@@ -53,14 +53,6 @@ async function imageBase64Example() {
   console.log(response.output_text);
 }
 
-async function imageGenerationExample() {
-  const response = await client.responses.create({
-    model: "gpt-4.1-mini",
-    input:
-      "Generate an image of gray tabby cat hugging an otter with an orange scarf",
-    tools: [{ type: "image_generation" }],
-  });
-}
 async function pdfUploadExample() {
   const file = await client.files.create({
     file: fs.createReadStream("./resources/Milwaukee Art Museum Summary.pdf"),
@@ -130,11 +122,14 @@ async function pdfUrlExample() {
   console.log(response.output_text);
 }
 
+async function multimodalExample() {
+  await imageUrlExample();
+  await imageBase64Example();
+  await pdfUploadExample();
+  await pdfBase64Example();
+  await pdfUrlExample();
+}
+
 export async function main() {
-  // await imageUrlExample();
-  // await imageBase64Example();
-  await imageGenerationExample();
-  // await pdfUploadExample();
-  // await pdfBase64Example();
-  // await pdfUrlExample();
+  return multimodalExample();
 }
