@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { HumanMessage, initChatModel, SystemMessage } from "langchain";
 
-async function main() {
+export async function main() {
   const oai = await initChatModel("openai:gpt-5-nano", {
     outputVersion: "v1",
   });
@@ -20,5 +20,3 @@ async function main() {
   const anthroResponse = await anthro.invoke(messages);
   console.log(anthroResponse);
 }
-
-main();

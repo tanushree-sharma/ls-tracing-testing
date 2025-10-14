@@ -38,7 +38,7 @@ function getWeather(location: string, unit: string = "fahrenheit") {
   });
 }
 
-async function main() {
+export async function main() {
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
     {
       role: "user",
@@ -84,5 +84,3 @@ async function main() {
     console.log(secondResponse.choices[0].message.content);
   }
 }
-
-main();

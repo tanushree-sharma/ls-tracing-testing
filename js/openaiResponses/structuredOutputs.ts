@@ -13,7 +13,7 @@ const PersonSchema = z.object({
   hobbies: z.array(z.string()),
 });
 
-async function main() {
+export async function main() {
   const response = await client.responses.create({
     model: "gpt-4o",
     input:
@@ -28,5 +28,3 @@ async function main() {
   console.log("Structured output response:");
   console.log(person);
 }
-
-main();

@@ -13,7 +13,7 @@ const PersonSchema = z.object({
   hobbies: z.array(z.string()),
 });
 
-async function main() {
+export async function main() {
   const response = await client.chat.completions.create({
     model: "gpt-5-2025-08-07",
     messages: [
@@ -31,5 +31,3 @@ async function main() {
   console.log("Structured output response:");
   console.log(person);
 }
-
-main();

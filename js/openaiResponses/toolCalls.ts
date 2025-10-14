@@ -28,7 +28,7 @@ const tools = [
   },
 ];
 
-async function main() {
+export async function main() {
   const response = await client.responses.create({
     model: "gpt-4o",
     input: "What's the weather like in San Francisco?",
@@ -47,5 +47,3 @@ async function main() {
     }
   }
 }
-
-main();

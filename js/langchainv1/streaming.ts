@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { initChatModel } from "langchain";
 
-async function main() {
+export async function main() {
   console.log("=== OpenAI Streaming ===");
   const oai = await initChatModel("openai:gpt-5-nano", {
     outputVersion: "v1",
@@ -24,5 +24,3 @@ async function main() {
   }
   console.log("\n");
 }
-
-main();

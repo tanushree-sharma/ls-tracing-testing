@@ -2,7 +2,7 @@ import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
 
-async function main() {
+export async function main() {
   console.log("=== OpenAI Streaming ===");
   const oai = new ChatOpenAI({
     model: "gpt-4o-mini",
@@ -25,5 +25,3 @@ async function main() {
   }
   console.log("\n");
 }
-
-main();

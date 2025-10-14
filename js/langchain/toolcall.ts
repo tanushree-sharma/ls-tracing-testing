@@ -18,7 +18,7 @@ const getWeather = tool(
   }
 );
 
-async function main() {
+export async function main() {
   const oai = new ChatOpenAI({
     model: "gpt-4o-mini",
   });
@@ -36,5 +36,3 @@ async function main() {
   );
   console.log(anthroResponse.tool_calls);
 }
-
-main();

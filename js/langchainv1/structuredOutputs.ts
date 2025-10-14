@@ -8,7 +8,7 @@ const Movie = z.object({
   rating: z.number().describe("The rating of the movie"),
 });
 
-async function main() {
+export async function main() {
   const oai = await initChatModel("openai:gpt-5-nano", {
     outputVersion: "v1",
   });
@@ -29,5 +29,3 @@ async function main() {
   );
   console.log(anthroResponse);
 }
-
-main();

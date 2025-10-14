@@ -2,7 +2,7 @@ import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
 
-async function main() {
+export async function main() {
   const oai = new ChatOpenAI({
     model: "gpt-4o-mini",
   });
@@ -17,5 +17,3 @@ async function main() {
   const anthroResponse = await anthro.invoke("Why do parrots talk?");
   console.log(anthroResponse);
 }
-
-main();

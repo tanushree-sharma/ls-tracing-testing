@@ -62,3 +62,11 @@ export function getPDFInputMessage() {
     ],
   });
 }
+
+export async function main() {
+  console.log("Multimodal message helpers exported:");
+  console.log("- getImageUrlMessage()");
+  console.log("- getImageBase64Message()");
+  console.log("- getGenerateImageMessage()");
+  console.log("- getPDFInputMessage()");
+}

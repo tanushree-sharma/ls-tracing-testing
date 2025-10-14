@@ -165,7 +165,7 @@ async function audioOutputExample() {
   console.log("Audio data available:", !!response.choices[0].message.audio);
 }
 
-async function main() {
+export async function main() {
   // await imageUrlExample();
   // await imageBase64Example();
   // await pdfUploadExample();
@@ -173,5 +173,3 @@ async function main() {
   await audioInputExample();
   // await audioOutputExample();
 }
-
-main();

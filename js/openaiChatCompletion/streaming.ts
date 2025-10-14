@@ -4,7 +4,7 @@ import { OpenAI } from "openai";
 
 const client = wrapOpenAI(new OpenAI());
 
-async function main() {
+export async function main() {
   const stream = await client.chat.completions.create({
     model: "gpt-5-2025-08-07",
     messages: [
@@ -25,5 +25,3 @@ async function main() {
   }
   console.log("\n");
 }
-
-main();

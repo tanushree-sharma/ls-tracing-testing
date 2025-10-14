@@ -130,7 +130,7 @@ async function pdfUrlExample() {
   console.log(response.output_text);
 }
 
-async function main() {
+export async function main() {
   // await imageUrlExample();
   // await imageBase64Example();
   await imageGenerationExample();
@@ -138,5 +138,3 @@ async function main() {
   // await pdfBase64Example();
   // await pdfUrlExample();
 }
-
-main();

@@ -4,7 +4,7 @@ import { OpenAI } from "openai";
 
 const client = wrapOpenAI(new OpenAI());
 
-async function main() {
+export async function main() {
   const response = await client.responses.create({
     model: "gpt-4o",
     input: "What is the capital of France? Explain in one sentence.",
@@ -13,5 +13,3 @@ async function main() {
   console.log("Response API output:");
   console.log(response.output_text);
 }
-
-main();

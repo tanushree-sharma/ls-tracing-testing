@@ -4,7 +4,7 @@ import { OpenAI } from "openai";
 
 const client = wrapOpenAI(new OpenAI());
 
-async function main() {
+export async function main() {
   const stream = await client.responses.create({
     model: "gpt-5",
     input: "Write a short poem about artificial intelligence in 4 lines.",
@@ -18,5 +18,3 @@ async function main() {
     }
   }
 }
-
-main();

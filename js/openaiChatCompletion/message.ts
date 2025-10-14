@@ -4,8 +4,7 @@ import { OpenAI } from "openai";
 
 const client = wrapOpenAI(new OpenAI());
 
-async function main() {
-  // Using the Responses API (newer simplified API)
+export async function main() {
   const response = await client.chat.completions.create({
     model: "gpt-4o",
     messages: [
@@ -21,5 +20,3 @@ async function main() {
   console.log("Response API output:");
   console.log(responseMessage.content);
 }
-
-main();

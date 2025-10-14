@@ -16,7 +16,7 @@ const getWeather = tool(
   }
 );
 
-async function main() {
+export async function main() {
   const oai = await initChatModel("openai:gpt-5-nano", {
     outputVersion: "v1",
   });
@@ -34,5 +34,3 @@ async function main() {
   );
   console.log(anthroResponse.tool_calls);
 }
-
-main();
