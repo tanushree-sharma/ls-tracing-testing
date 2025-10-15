@@ -52,7 +52,7 @@ export async function main() {
   const oai = new ChatOpenAI({
     model: "gpt-5-2025-08-07",
     // @ts-ignore
-    outputVersion: "responses/v1",
+    outputVersion: "v1",
   });
   await generateImage(oai);
   await webSearch(oai);
