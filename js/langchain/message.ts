@@ -1,19 +1,29 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
+import { getCurrentRunTree, traceable } from "langsmith/traceable";
 
-export async function main() {
+export const main = traceable(async function messageMain(
+  outputVersion?: "v0" | "v1"
+) {
+  const runTree = getCurrentRunTree();
+  if (runTree) {
+    runTree.name = `message_example${outputVersion ? `_${outputVersion}` : ""}`;
+  }
+
   const oai = new ChatOpenAI({
-    model: "gpt-4o-mini",
+    model: "gpt-5-2025-08-07",
+    outputVersion,
   });
 
   const oaiResponse = await oai.invoke("Why do parrots talk?");
   console.log(oaiResponse);
 
   const anthro = new ChatAnthropic({
-    model: "claude-3-5-sonnet-latest",
+    model: "claude-sonnet-4-20250514",
+    outputVersion,
   });
 
   const anthroResponse = await anthro.invoke("Why do parrots talk?");
   console.log(anthroResponse);
-}
+});

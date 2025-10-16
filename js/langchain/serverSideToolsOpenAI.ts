@@ -1,6 +1,7 @@
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
 import { HumanMessage } from "langchain";
+import { getCurrentRunTree, traceable } from "langsmith/traceable";
 
 async function generateImage(oai: ChatOpenAI) {
   const humanMessage = new HumanMessage({
@@ -48,15 +49,21 @@ async function codeExecution(oai: ChatOpenAI) {
   console.log(oaiResponse);
 }
 
-export async function main() {
+export const main = traceable(async function serverSideToolsOpenAIMain(
+  outputVersion?: "v0" | "v1"
+) {
+  const runTree = getCurrentRunTree();
+  if (runTree) {
+    runTree.name = `serverside_tools_openai_example${
+      outputVersion ? `_${outputVersion}` : ""
+    }`;
+  }
+
   const oai = new ChatOpenAI({
     model: "gpt-5-2025-08-07",
-    // @ts-ignore
-    outputVersion: "v1",
+    outputVersion: outputVersion || "v1",
   });
   await generateImage(oai);
   await webSearch(oai);
   await codeExecution(oai);
-}
-
-main();
+});

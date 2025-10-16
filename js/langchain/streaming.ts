@@ -1,11 +1,22 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
+import { getCurrentRunTree, traceable } from "langsmith/traceable";
 
-export async function main() {
+export const main = traceable(async function streamingMain(
+  outputVersion?: "v0" | "v1"
+) {
+  const runTree = getCurrentRunTree();
+  if (runTree) {
+    runTree.name = `streaming_example${
+      outputVersion ? `_${outputVersion}` : ""
+    }`;
+  }
+
   console.log("=== OpenAI Streaming ===");
   const oai = new ChatOpenAI({
-    model: "gpt-4o-mini",
+    model: "gpt-5-2025-08-07",
+    outputVersion,
   });
 
   const oaiStream = await oai.stream("Write a haiku about programming.");
@@ -16,7 +27,8 @@ export async function main() {
 
   console.log("=== Anthropic Streaming ===");
   const anthro = new ChatAnthropic({
-    model: "claude-3-5-sonnet-latest",
+    model: "claude-sonnet-4-20250514",
+    outputVersion,
   });
 
   const anthroStream = await anthro.stream("Write a haiku about programming.");
@@ -24,4 +36,4 @@ export async function main() {
     console.log(chunk.content);
   }
   console.log("\n");
-}
+});

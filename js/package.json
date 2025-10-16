@@ -13,10 +13,10 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.65.0",
     "@langchain/anthropic": "1.0.0-alpha.2",
-    "@langchain/core": "1.0.0-alpha.6",
-    "@langchain/openai": "1.0.0-alpha.2",
+    "@langchain/core": "1.0.0-alpha.7",
+    "@langchain/openai": "1.0.0-alpha.3",
     "dotenv": "^17.2.3",
-    "langchain": "1.0.0-alpha.8",
+    "langchain": "1.0.0-alpha.9",
     "langsmith": "^0.3.73",
     "openai": "^6.2.0",
     "zod": "^3.25.76"

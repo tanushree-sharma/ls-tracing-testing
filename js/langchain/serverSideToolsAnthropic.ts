@@ -1,6 +1,7 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import "dotenv/config";
 import { HumanMessage } from "langchain";
+import { getCurrentRunTree, traceable } from "langsmith/traceable";
 
 async function webSearch(claude: ChatAnthropic) {
   console.log("\n=== Web Search Example ===");
@@ -71,15 +72,26 @@ async function codeExecution(claude: ChatAnthropic) {
   console.log(response);
 }
 
-export async function main() {
+export const main = traceable(async function serverSideToolsAnthropicMain(
+  outputVersion?: "v0" | "v1"
+) {
+  const runTree = getCurrentRunTree();
+  if (runTree) {
+    runTree.name = `serverside_tools_anthropic_example${
+      outputVersion ? `_${outputVersion}` : ""
+    }`;
+  }
+
   // Web Search
   const claudeWithWebSearch = new ChatAnthropic({
     model: "claude-sonnet-4-20250514",
+    outputVersion,
   });
   await webSearch(claudeWithWebSearch);
   // Web Fetching
   const claudeWithWebFetch = new ChatAnthropic({
     model: "claude-sonnet-4-20250514",
+    outputVersion,
     clientOptions: {
       defaultHeaders: {
         "anthropic-beta": "web-fetch-2025-09-10",
@@ -90,6 +102,7 @@ export async function main() {
   // Code Execution
   const claudeWithCodeExec = new ChatAnthropic({
     model: "claude-sonnet-4-20250514",
+    outputVersion,
     clientOptions: {
       defaultHeaders: {
         "anthropic-beta": "code-execution-2025-08-25",
@@ -97,5 +110,4 @@ export async function main() {
     },
   });
   await codeExecution(claudeWithCodeExec);
-}
-main();
+});

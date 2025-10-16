@@ -1,6 +1,7 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
+import { getCurrentRunTree, traceable } from "langsmith/traceable";
 import { z } from "zod";
 
 const Movie = z.object({
@@ -9,11 +10,21 @@ const Movie = z.object({
   rating: z.number().describe("The rating of the movie"),
 });
 
-export async function main() {
+export const main = traceable(async function structuredOutputsMain(
+  outputVersion?: "v0" | "v1"
+) {
+  const runTree = getCurrentRunTree();
+  if (runTree) {
+    runTree.name = `structured_outputs_example${
+      outputVersion ? `_${outputVersion}` : ""
+    }`;
+  }
+
   const oai = new ChatOpenAI({
     model: "gpt-5",
+    outputVersion,
   });
-  // @ts-ignore
+
   const oaiWithStructuredOutput = oai.withStructuredOutput(Movie);
   const oaiResponse = await oaiWithStructuredOutput.invoke(
     "Tell me about the movie The Matrix"
@@ -21,7 +32,8 @@ export async function main() {
   console.log(oaiResponse);
 
   const anthro = new ChatAnthropic({
-    model: "claude-3-5-sonnet-latest",
+    model: "claude-sonnet-4-20250514",
+    outputVersion,
   });
 
   const anthroWithStructuredOutput = anthro.withStructuredOutput(Movie);
@@ -29,4 +41,4 @@ export async function main() {
     "Tell me about the movie The Matrix"
   );
   console.log(anthroResponse);
-}
+});

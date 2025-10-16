@@ -1,6 +1,7 @@
-langchain>=1.0.0a0
-langchain-anthropic>=1.0.0a0
-langchain-openai>=1.0.0a0
+langchain>=1.0.0a15
+langchain-anthropic>=1.0.0a5
+langchain-core>=1.0.0rc2
+langchain-openai>=1.0.0a4
 langsmith>=0.3.0
 anthropic>=0.65.0
 openai>=2.0.0
