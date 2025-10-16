@@ -5,30 +5,28 @@ import sys
 if __name__ == "__main__":
     sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from langsmith import traceable
 
 # Use try/except to handle both direct execution and module import
 try:
     from . import (
         message,
-        multimodal_anthropic,
         multimodal_messages,
-        multimodal_openai,
+        server_tool_calls_anthropic,
+        server_tool_calls_openai,
         streaming,
         structured_outputs,
         tool_call,
     )
 except ImportError:
-    import langchain_v1.message as message
-    import langchain_v1.multimodal_anthropic as multimodal_anthropic
-    import langchain_v1.multimodal_messages as multimodal_messages
-    import langchain_v1.multimodal_openai as multimodal_openai
-    import langchain_v1.streaming as streaming
-    import langchain_v1.structured_outputs as structured_outputs
-    import langchain_v1.tool_call as tool_call
+    import message  # noqa: F401
+    import multimodal_messages  # noqa: F401
+    import server_tool_calls_anthropic  # noqa: F401
+    import server_tool_calls_openai  # noqa: F401
+    import streaming  # noqa: F401
+    import structured_outputs  # noqa: F401
+    import tool_call  # noqa: F401
 
 
-@traceable(name="langchain_v1 Main")
 def langchain_v1_main():
     """Run all LangChain v1 examples."""
     print("=== Running LangChain v1 Examples ===\n")
@@ -48,11 +46,11 @@ def langchain_v1_main():
     print("\n--- Multimodal Messages Example ---")
     multimodal_messages.main()
 
-    print("\n--- Multimodal Anthropic Example ---")
-    multimodal_anthropic.main()
+    print("\n--- server tool calls Anthropic Example ---")
+    server_tool_calls_anthropic.main()
 
-    print("\n--- Multimodal OpenAI Example ---")
-    multimodal_openai.main()
+    print("\n--- server tool calls OpenAI Example ---")
+    server_tool_calls_openai.main()
 
     print("\n=== All LangChain v1 Examples Complete ===")
     return {"status": "complete"}

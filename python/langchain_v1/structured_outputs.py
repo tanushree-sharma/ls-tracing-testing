@@ -36,6 +36,7 @@ def structured_output_anthropic():
     return response
 
 
+@traceable(name="LangChain v1 Structured Outputs")
 def main():
     print("Running LangChain v1 structured output examples...")
     structured_output_openai()

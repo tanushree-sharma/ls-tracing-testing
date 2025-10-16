@@ -85,6 +85,7 @@ def tool_message_example():
     return response
 
 
+@traceable(name="LangChain v1 Tool Call")
 def main():
     print("Running LangChain v1 tool call examples...")
     tool_call_openai()

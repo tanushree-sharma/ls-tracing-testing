@@ -1,8 +1,8 @@
 from . import (
     message,
-    multimodal_anthropic,
     multimodal_messages,
-    multimodal_openai,
+    server_tool_calls_anthropic,
+    server_tool_calls_openai,
     streaming,
     structured_outputs,
     tool_call,
@@ -15,8 +15,8 @@ __all__ = [
     "tool_call",
     "structured_outputs",
     "multimodal_messages",
-    "multimodal_anthropic",
-    "multimodal_openai",
+    "server_tool_calls_anthropic",
+    "server_tool_calls_openai",
     "main",
     "langchain_v1_main",
 ]

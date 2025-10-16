@@ -15,7 +15,7 @@ thinking = {"type": "enabled", "budget_tokens": 2000}
 def reasoning_example():
     """Reasoning/thinking with Anthropic."""
     model = init_chat_model(
-        "anthropic:claude-3-7-sonnet-latest", output_version="v1", thinking=thinking
+        "anthropic:claude-sonnet-4-20250514", output_version="v1", thinking=thinking
     )
 
     inputs = [
@@ -24,7 +24,7 @@ def reasoning_example():
                 {"type": "text", "text": "What is in this image?"},
                 {
                     "type": "image",
-                    "url": "https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U",
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
                 },
             ]
         )
@@ -46,7 +46,7 @@ def files_api_example():
             file = client.beta.files.upload(file=("document.pdf", f, "application/pdf"))
 
         model = init_chat_model(
-            "anthropic:claude-3-7-sonnet-latest",
+            "anthropic:claude-sonnet-4-20250514",
             output_version="v1",
             thinking=thinking,
             betas=["files-api-2025-04-14"],
@@ -71,7 +71,7 @@ def files_api_example():
 @traceable(name="LangChain v1 Anthropic Citations")
 def citations_example():
     """Citations with Anthropic."""
-    model = init_chat_model("anthropic:claude-3-7-sonnet-latest", output_version="v1")
+    model = init_chat_model("anthropic:claude-sonnet-4-20250514", output_version="v1")
 
     messages = [
         {
@@ -98,11 +98,31 @@ def citations_example():
     return response
 
 
+@traceable(name="LangChain v1 Anthropic Code Execution")
+def code_execution_example():
+    """Code execution with Anthropic."""
+    model = init_chat_model(
+        "anthropic:claude-sonnet-4-20250514",
+        output_version="v1",
+        thinking=thinking,
+        betas=["code-execution-2025-08-25"],
+    )
+
+    tool = {"type": "code_execution_20250825", "name": "code_execution"}
+    llm_with_tools = model.bind_tools([tool])
+
+    response = llm_with_tools.invoke(
+        "Calculate the fibonacci sequence up to 10 terms using Python."
+    )
+    print(f"Code execution response: {response}")
+    return response
+
+
 @traceable(name="LangChain v1 Anthropic Web Fetch")
 def web_fetch_example():
     """Web fetch with Anthropic."""
     model = init_chat_model(
-        "anthropic:claude-3-7-sonnet-latest",
+        "anthropic:claude-sonnet-4-20250514",
         output_version="v1",
         thinking=thinking,
         betas=["web-fetch-2025-09-10"],
@@ -118,10 +138,12 @@ def web_fetch_example():
     return response
 
 
+@traceable(name="LangChain v1 Anthropic server tool calls")
 def main():
-    print("Running LangChain v1 Anthropic multimodal examples...")
+    print("Running LangChain v1 Anthropic server tool calls examples...")
     reasoning_example()
     files_api_example()
     citations_example()
+    code_execution_example()
     web_fetch_example()
     return {"multimodal_anthropic": "complete"}

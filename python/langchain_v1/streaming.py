@@ -15,6 +15,7 @@ def streaming_example():
     return {"streaming": "complete"}
 
 
+@traceable(name="LangChain v1 Streaming")
 def main():
     print("Running LangChain v1 streaming example...")
     streaming_example()

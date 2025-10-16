@@ -1,4 +1,3 @@
-from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import HumanMessage, SystemMessage
 from langsmith import traceable
@@ -29,12 +28,9 @@ def message_anthropic():
     return response
 
 
+@traceable(name="LangChain v1 Simple messages")
 def main():
     print("Running LangChain v1 message examples...")
     message_openai()
     message_anthropic()
     return {"message": "complete"}
-
-
-load_dotenv()
-main()
