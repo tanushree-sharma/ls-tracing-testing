@@ -10,9 +10,14 @@ from langsmith import traceable
 
 
 @traceable(name="OpenAI Image Input")
-def image_input_example():
+def image_input_example(output_version: str = "v1", use_responses_api: bool = False):
     """Image input using content_blocks."""
-    model = init_chat_model("gpt-4o", model_provider="openai", output_version="v1")
+    model = init_chat_model(
+        "gpt-4o",
+        model_provider="openai",
+        output_version=output_version,
+        use_responses_api=use_responses_api,
+    )
 
     messages = [
         HumanMessage(
@@ -32,10 +37,13 @@ def image_input_example():
 
 
 @traceable(name="OpenAI PDF base64")
-def pdf_input_example():
+def pdf_input_example(output_version: str = "v1", use_responses_api: bool = True):
     """PDF input using content_blocks."""
     model = init_chat_model(
-        "gpt-5-mini", model_provider="openai", output_version="responses/v1"
+        "gpt-5-mini",
+        model_provider="openai",
+        output_version=output_version,
+        use_responses_api=use_responses_api,
     )
 
     pdf_path = os.path.join(
@@ -64,10 +72,13 @@ def pdf_input_example():
 
 
 @traceable(name="OpenAI PDF url")
-def pdf_url_example():
+def pdf_url_example(output_version: str = "v1", use_responses_api: bool = True):
     """PDF input using content_blocks."""
     model = init_chat_model(
-        "gpt-5-mini", model_provider="openai", output_version="responses/v1"
+        "gpt-5-mini",
+        model_provider="openai",
+        output_version=output_version,
+        use_responses_api=use_responses_api,
     )
 
     inputs = {
@@ -87,10 +98,12 @@ def pdf_url_example():
 
 
 @traceable(name="Anthropic Image Input Base64")
-def image_base64_anthropic_example():
+def image_base64_anthropic_example(output_version: str = "v1"):
     """Image input as base64 with Anthropic."""
     model = init_chat_model(
-        "claude-sonnet-4-20250514", model_provider="anthropic", output_version="v1"
+        "claude-sonnet-4-20250514",
+        model_provider="anthropic",
+        output_version=output_version,
     )
 
     messages = [
@@ -111,10 +124,13 @@ def image_base64_anthropic_example():
 
 
 @traceable(name="Anthropic PDF Input Base64")
-def pdf_base64_anthropic_example():
+def pdf_base64_anthropic_example(output_version: str = "v1"):
     """PDF input as base64 with Anthropic."""
     model = init_chat_model(
-        "claude-sonnet-4-20250514", model_provider="anthropic", output_version="v1"
+        "claude-sonnet-4-20250514",
+        model_provider="anthropic",
+        output_version=output_version,
+        use_responses_api=True,
     )
 
     pdf_path = os.path.join(
@@ -143,12 +159,17 @@ def pdf_base64_anthropic_example():
     return response
 
 
-@traceable(name="LangChain v1 Multimodal messages")
-def main():
+@traceable
+def main(output_version: str = "v1", use_responses_api: bool = False, run_tree=None):
+    if run_tree:
+        api_suffix = " + Responses API" if use_responses_api else ""
+        run_tree.name = f"LangChain Multimodal messages ({output_version}{api_suffix})"
     print("Running LangChain v1 multimodal messages examples...")
-    image_input_example()
-    pdf_input_example()
-    pdf_url_example()
-    image_base64_anthropic_example()
-    pdf_base64_anthropic_example()
+    image_input_example(output_version, use_responses_api)
+    pdf_input_example(output_version, use_responses_api)
+    if use_responses_api:
+        pdf_url_example(output_version, use_responses_api)
+        return {"multimodal_messages": "complete"}
+    image_base64_anthropic_example(output_version)
+    pdf_base64_anthropic_example(output_version)
     return {"multimodal_messages": "complete"}

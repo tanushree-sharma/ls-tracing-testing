@@ -5,6 +5,7 @@ import sys
 if __name__ == "__main__":
     sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
+from langsmith import traceable
 
 # Use try/except to handle both direct execution and module import
 try:
@@ -18,50 +19,55 @@ try:
         tool_call,
     )
 except ImportError:
-    import message  # noqa: F401
-    import multimodal_messages  # noqa: F401
-    import server_tool_calls_anthropic  # noqa: F401
-    import server_tool_calls_openai  # noqa: F401
-    import streaming  # noqa: F401
-    import structured_outputs  # noqa: F401
-    import tool_call  # noqa: F401
+    import message
+    import multimodal_messages
+    import server_tool_calls_anthropic
+    import server_tool_calls_openai
+    import streaming
+    import structured_outputs
+    import tool_call
 
 
-def langchain_v1_main():
+def langchain_v1_main(output_version: str = "v1", use_responses_api: bool = False):
     """Run all LangChain v1 examples."""
     print("=== Running LangChain v1 Examples ===\n")
 
     print("--- Message Example ---")
-    message.main()
+    message.main(output_version, use_responses_api)
 
     print("\n--- Streaming Example ---")
-    streaming.main()
+    streaming.main(output_version, use_responses_api)
 
     print("\n--- Tool Call Example ---")
-    tool_call.main()
+    tool_call.main(output_version, use_responses_api)
 
     print("\n--- Structured Outputs Example ---")
-    structured_outputs.main()
+    structured_outputs.main(output_version, use_responses_api)
 
     print("\n--- Multimodal Messages Example ---")
-    multimodal_messages.main()
+    multimodal_messages.main(output_version, use_responses_api)
 
-    print("\n--- server tool calls Anthropic Example ---")
-    server_tool_calls_anthropic.main()
+    if not use_responses_api:
+        print("\n--- server tool calls Anthropic Example ---")
+        server_tool_calls_anthropic.main(output_version)
 
     print("\n--- server tool calls OpenAI Example ---")
-    server_tool_calls_openai.main()
+    server_tool_calls_openai.main(output_version, use_responses_api)
 
     print("\n=== All LangChain v1 Examples Complete ===")
     return {"status": "complete"}
 
 
-def main():
-    return langchain_v1_main()
+@traceable
+def main(output_version: str = "v1", use_responses_api: bool = False, run_tree=None):
+    if run_tree:
+        api_suffix = " + Responses API" if use_responses_api else ""
+        run_tree.name = f"LangChain ({output_version}{api_suffix})"
+    return langchain_v1_main(output_version, use_responses_api)
 
 
 if __name__ == "__main__":
     from dotenv import load_dotenv
 
     load_dotenv()
-    main()
+    main(output_version="v1")

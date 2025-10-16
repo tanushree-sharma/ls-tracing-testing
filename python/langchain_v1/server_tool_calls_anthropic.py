@@ -12,10 +12,12 @@ thinking = {"type": "enabled", "budget_tokens": 2000}
 
 
 @traceable(name="Anthropic Reasoning")
-def reasoning_example():
+def reasoning_example(output_version: str = "v1"):
     """Reasoning/thinking with Anthropic."""
     model = init_chat_model(
-        "anthropic:claude-sonnet-4-20250514", output_version="v1", thinking=thinking
+        "anthropic:claude-sonnet-4-20250514",
+        output_version=output_version,
+        thinking=thinking,
     )
 
     inputs = [
@@ -36,7 +38,7 @@ def reasoning_example():
 
 
 @traceable(name="Anthropic Files API")
-def files_api_example():
+def files_api_example(output_version: str = "v1"):
     """Files API with Anthropic."""
     client = anthropic.Anthropic()
 
@@ -47,7 +49,7 @@ def files_api_example():
 
         model = init_chat_model(
             "anthropic:claude-sonnet-4-20250514",
-            output_version="v1",
+            output_version=output_version,
             thinking=thinking,
             betas=["files-api-2025-04-14"],
         )
@@ -69,9 +71,11 @@ def files_api_example():
 
 
 @traceable(name="Anthropic Citations")
-def citations_example():
+def citations_example(output_version: str = "v1"):
     """Citations with Anthropic."""
-    model = init_chat_model("anthropic:claude-sonnet-4-20250514", output_version="v1")
+    model = init_chat_model(
+        "anthropic:claude-sonnet-4-20250514", output_version=output_version
+    )
 
     messages = [
         {
@@ -99,11 +103,11 @@ def citations_example():
 
 
 @traceable(name="Anthropic Code Execution")
-def code_execution_example():
+def code_execution_example(output_version: str = "v1"):
     """Code execution with Anthropic."""
     model = init_chat_model(
         "anthropic:claude-sonnet-4-20250514",
-        output_version="v1",
+        output_version=output_version,
         thinking=thinking,
         betas=["code-execution-2025-08-25"],
     )
@@ -119,11 +123,11 @@ def code_execution_example():
 
 
 @traceable(name="Anthropic Web Fetch")
-def web_fetch_example():
+def web_fetch_example(output_version: str = "v1"):
     """Web fetch with Anthropic."""
     model = init_chat_model(
         "anthropic:claude-sonnet-4-20250514",
-        output_version="v1",
+        output_version=output_version,
         thinking=thinking,
         betas=["web-fetch-2025-09-10"],
     )
@@ -138,12 +142,14 @@ def web_fetch_example():
     return response
 
 
-@traceable(name="LangChain v1 Anthropic server tool calls")
-def main():
+@traceable
+def main(output_version: str = "v1", run_tree=None):
+    if run_tree:
+        run_tree.name = f"LangChain Anthropic server tool calls ({output_version})"
     print("Running LangChain v1 Anthropic server tool calls examples...")
-    reasoning_example()
-    files_api_example()
-    citations_example()
-    code_execution_example()
-    web_fetch_example()
+    reasoning_example(output_version)
+    files_api_example(output_version)
+    citations_example(output_version)
+    code_execution_example(output_version)
+    web_fetch_example(output_version)
     return {"multimodal_anthropic": "complete"}
