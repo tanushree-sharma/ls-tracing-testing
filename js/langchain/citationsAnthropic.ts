@@ -1,18 +1,11 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import "dotenv/config";
 import { HumanMessage } from "langchain";
-import { getCurrentRunTree, traceable } from "langsmith/traceable";
+import { traceable } from "langsmith/traceable";
 
 export const main = traceable(async function citationsAnthropicMain(
   outputVersion?: "v0" | "v1"
 ) {
-  const runTree = getCurrentRunTree();
-  if (runTree) {
-    runTree.name = `citations_anthropic_example${
-      outputVersion ? `_${outputVersion}` : ""
-    }`;
-  }
-
   const claude = new ChatAnthropic({
     model: "claude-sonnet-4-20250514",
     // @ts-ignore

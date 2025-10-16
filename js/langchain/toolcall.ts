@@ -2,10 +2,9 @@ import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
 import { tool } from "langchain";
-import { getCurrentRunTree, traceable } from "langsmith/traceable";
+import { traceable } from "langsmith/traceable";
 import { z } from "zod";
 
-// @ts-ignore
 const getWeather = tool(
   (input: { location: string }) => {
     return `It's sunny in ${input.location}.`;
@@ -22,13 +21,6 @@ const getWeather = tool(
 export const main = traceable(async function toolCallMain(
   outputVersion?: "v0" | "v1"
 ) {
-  const runTree = getCurrentRunTree();
-  if (runTree) {
-    runTree.name = `toolcall_example${
-      outputVersion ? `_${outputVersion}` : ""
-    }`;
-  }
-
   const oai = new ChatOpenAI({
     model: "gpt-5-2025-08-07",
     outputVersion,

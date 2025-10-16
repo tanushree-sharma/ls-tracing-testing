@@ -1,9 +1,9 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import "dotenv/config";
 import { HumanMessage } from "langchain";
-import { getCurrentRunTree, traceable } from "langsmith/traceable";
+import { traceable } from "langsmith/traceable";
 
-async function webSearch(claude: ChatAnthropic) {
+const webSearch = traceable(async function webSearch(claude: ChatAnthropic) {
   console.log("\n=== Web Search Example ===");
 
   const message = new HumanMessage({
@@ -26,9 +26,11 @@ async function webSearch(claude: ChatAnthropic) {
   });
 
   console.log(response);
-}
+});
 
-async function webFetching(claude: ChatAnthropic) {
+const webFetching = traceable(async function webFetching(
+  claude: ChatAnthropic
+) {
   console.log("\n=== Web Fetching Example ===");
 
   const message = new HumanMessage({
@@ -51,9 +53,11 @@ async function webFetching(claude: ChatAnthropic) {
   });
 
   console.log(response);
-}
+});
 
-async function codeExecution(claude: ChatAnthropic) {
+const codeExecution = traceable(async function codeExecution(
+  claude: ChatAnthropic
+) {
   console.log("\n=== Code Execution Example ===");
 
   const message = new HumanMessage({
@@ -70,18 +74,11 @@ async function codeExecution(claude: ChatAnthropic) {
   const response = await claudeWithTools.invoke([message]);
 
   console.log(response);
-}
+});
 
 export const main = traceable(async function serverSideToolsAnthropicMain(
   outputVersion?: "v0" | "v1"
 ) {
-  const runTree = getCurrentRunTree();
-  if (runTree) {
-    runTree.name = `serverside_tools_anthropic_example${
-      outputVersion ? `_${outputVersion}` : ""
-    }`;
-  }
-
   // Web Search
   const claudeWithWebSearch = new ChatAnthropic({
     model: "claude-sonnet-4-20250514",

@@ -1,16 +1,11 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
-import { getCurrentRunTree, traceable } from "langsmith/traceable";
+import { traceable } from "langsmith/traceable";
 
 export const main = traceable(async function messageMain(
   outputVersion?: "v0" | "v1"
 ) {
-  const runTree = getCurrentRunTree();
-  if (runTree) {
-    runTree.name = `message_example${outputVersion ? `_${outputVersion}` : ""}`;
-  }
-
   const oai = new ChatOpenAI({
     model: "gpt-5-2025-08-07",
     outputVersion,

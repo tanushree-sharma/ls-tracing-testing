@@ -1,7 +1,7 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import "dotenv/config";
-import { getCurrentRunTree, traceable } from "langsmith/traceable";
+import { traceable } from "langsmith/traceable";
 import { z } from "zod";
 
 const Movie = z.object({
@@ -13,13 +13,6 @@ const Movie = z.object({
 export const main = traceable(async function structuredOutputsMain(
   outputVersion?: "v0" | "v1"
 ) {
-  const runTree = getCurrentRunTree();
-  if (runTree) {
-    runTree.name = `structured_outputs_example${
-      outputVersion ? `_${outputVersion}` : ""
-    }`;
-  }
-
   const oai = new ChatOpenAI({
     model: "gpt-5",
     outputVersion,
