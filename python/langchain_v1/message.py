@@ -3,7 +3,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langsmith import traceable
 
 
-@traceable(name="LangChain v1 Message - OpenAI")
+@traceable(name="OpenAI Message")
 def message_openai():
     """Simple message with OpenAI."""
     model = init_chat_model("gpt-5-mini", model_provider="openai", output_version="v1")
@@ -17,7 +17,7 @@ def message_openai():
     return response
 
 
-@traceable(name="LangChain v1 Message - Anthropic")
+@traceable(name="Anthropic Message")
 def message_anthropic():
     """Simple message with Anthropic."""
     model = init_chat_model("anthropic:claude-3-7-sonnet-latest", output_version="v1")

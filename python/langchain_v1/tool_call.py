@@ -25,7 +25,7 @@ def get_weather(location: str) -> str:
     return f"It's sunny in {location}."
 
 
-@traceable(name="LangChain v1 Tool Call - OpenAI")
+@traceable(name="OpenAI Tool Call")
 def tool_call_openai():
     """Tool call with OpenAI."""
     model = init_chat_model("gpt-4.1", model_provider="openai", output_version="v1")
@@ -40,7 +40,7 @@ def tool_call_openai():
     return response
 
 
-@traceable(name="LangChain v1 Tool Call - Anthropic")
+@traceable(name="Anthropic Tool Call")
 def tool_call_anthropic():
     """Tool call with Anthropic."""
     model = init_chat_model("anthropic:claude-3-7-sonnet-latest", output_version="v1")
@@ -52,7 +52,7 @@ def tool_call_anthropic():
     return response
 
 
-@traceable(name="LangChain v1 Tool Message")
+@traceable(name="OpenAI Tool Message")
 def tool_message_example():
     """Tool message example."""
     model = init_chat_model("gpt-4.1", model_provider="openai", output_version="v1")

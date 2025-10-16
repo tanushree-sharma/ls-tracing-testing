@@ -9,7 +9,7 @@ from langchain_core.messages import HumanMessage
 from langsmith import traceable
 
 
-@traceable(name="LangChain v1 Image Input")
+@traceable(name="OpenAI Image Input")
 def image_input_example():
     """Image input using content_blocks."""
     model = init_chat_model("gpt-4o", model_provider="openai", output_version="v1")
@@ -31,7 +31,7 @@ def image_input_example():
     return response
 
 
-@traceable(name="LangChain v1 PDF base64")
+@traceable(name="OpenAI PDF base64")
 def pdf_input_example():
     """PDF input using content_blocks."""
     model = init_chat_model(
@@ -63,7 +63,7 @@ def pdf_input_example():
     return response
 
 
-@traceable(name="LangChain v1 PDF url")
+@traceable(name="OpenAI PDF url")
 def pdf_url_example():
     """PDF input using content_blocks."""
     model = init_chat_model(
@@ -86,7 +86,7 @@ def pdf_url_example():
     return response
 
 
-@traceable(name="LangChain v1 Image Input Base64 Anthropic")
+@traceable(name="Anthropic Image Input Base64")
 def image_base64_anthropic_example():
     """Image input as base64 with Anthropic."""
     model = init_chat_model(
@@ -110,7 +110,7 @@ def image_base64_anthropic_example():
     return response
 
 
-@traceable(name="LangChain v1 PDF Input Base64 Anthropic")
+@traceable(name="Anthropic PDF Input Base64")
 def pdf_base64_anthropic_example():
     """PDF input as base64 with Anthropic."""
     model = init_chat_model(

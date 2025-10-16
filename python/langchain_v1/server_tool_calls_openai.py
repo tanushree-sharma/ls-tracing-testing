@@ -14,7 +14,7 @@ reasoning = {
 }
 
 
-@traceable(name="LangChain v1 OpenAI Reasoning")
+@traceable(name="OpenAI Reasoning")
 def reasoning_example():
     """Reasoning with OpenAI."""
     model = init_chat_model(
@@ -38,7 +38,7 @@ def reasoning_example():
     return response
 
 
-@traceable(name="LangChain v1 OpenAI Files API")
+@traceable(name="OpenAI Files API")
 def files_api_example():
     """Files API with OpenAI."""
     client = OpenAI()
@@ -65,7 +65,7 @@ def files_api_example():
         return None
 
 
-@traceable(name="LangChain v1 OpenAI Web Search")
+@traceable(name="OpenAI Web Search")
 def web_search_example():
     """Web search with OpenAI."""
     model = init_chat_model("openai:gpt-4.1-mini", output_version="v1")
@@ -78,7 +78,7 @@ def web_search_example():
     return response
 
 
-@traceable(name="LangChain v1 OpenAI Image Generation")
+@traceable(name="OpenAI Image Generation")
 def image_generation_example():
     """Image generation with OpenAI."""
     model = init_chat_model("openai:gpt-4.1-mini", output_version="v1")
@@ -93,7 +93,7 @@ def image_generation_example():
     return response
 
 
-@traceable(name="LangChain v1 OpenAI Code Interpreter")
+@traceable(name="OpenAI Code Interpreter")
 def code_interpreter_example():
     """Code interpreter with OpenAI."""
     model = init_chat_model("openai:gpt-4.1-mini", output_version="v1")

@@ -12,7 +12,7 @@ class Movie(BaseModel):
     rating: float = Field(..., description="The movie's rating out of 10")
 
 
-@traceable(name="LangChain v1 Structured Output - OpenAI")
+@traceable(name="OpenAI Structured Output")
 def structured_output_openai():
     """Structured output with OpenAI."""
     model = init_chat_model("gpt-4.1", model_provider="openai", output_version="v1")
@@ -24,7 +24,7 @@ def structured_output_openai():
     return response
 
 
-@traceable(name="LangChain v1 Structured Output - Anthropic")
+@traceable(name="Anthropic Structured Output")
 def structured_output_anthropic():
     """Structured output with Anthropic."""
     model = init_chat_model("anthropic:claude-3-7-sonnet-latest", output_version="v1")

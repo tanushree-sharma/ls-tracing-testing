@@ -11,7 +11,7 @@ from langsmith import traceable
 thinking = {"type": "enabled", "budget_tokens": 2000}
 
 
-@traceable(name="LangChain v1 Anthropic Reasoning")
+@traceable(name="Anthropic Reasoning")
 def reasoning_example():
     """Reasoning/thinking with Anthropic."""
     model = init_chat_model(
@@ -35,7 +35,7 @@ def reasoning_example():
     return response
 
 
-@traceable(name="LangChain v1 Anthropic Files API")
+@traceable(name="Anthropic Files API")
 def files_api_example():
     """Files API with Anthropic."""
     client = anthropic.Anthropic()
@@ -68,7 +68,7 @@ def files_api_example():
         return None
 
 
-@traceable(name="LangChain v1 Anthropic Citations")
+@traceable(name="Anthropic Citations")
 def citations_example():
     """Citations with Anthropic."""
     model = init_chat_model("anthropic:claude-sonnet-4-20250514", output_version="v1")
@@ -98,7 +98,7 @@ def citations_example():
     return response
 
 
-@traceable(name="LangChain v1 Anthropic Code Execution")
+@traceable(name="Anthropic Code Execution")
 def code_execution_example():
     """Code execution with Anthropic."""
     model = init_chat_model(
@@ -118,7 +118,7 @@ def code_execution_example():
     return response
 
 
-@traceable(name="LangChain v1 Anthropic Web Fetch")
+@traceable(name="Anthropic Web Fetch")
 def web_fetch_example():
     """Web fetch with Anthropic."""
     model = init_chat_model(
@@ -132,7 +132,7 @@ def web_fetch_example():
     llm_with_tools = model.bind_tools([tool])
 
     response = llm_with_tools.invoke(
-        "Please analyze the content at https://example.com/article"
+        "Fetch and summarize the content from https://www.anthropic.com/new"
     )
     print(f"Web fetch response: {response}")
     return response
