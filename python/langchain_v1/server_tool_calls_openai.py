@@ -145,9 +145,10 @@ def main(output_version: str = "v1", use_responses_api: bool = False, run_tree=N
             f"LangChain OpenAI server tool calls ({output_version}{api_suffix})"
         )
     print("Running LangChain v1 OpenAI server tool calls examples...")
-    reasoning_example(output_version, use_responses_api)
-    files_api_example(output_version, use_responses_api)
-    web_search_example(output_version, use_responses_api)
-    image_generation_example(output_version, use_responses_api)
-    code_interpreter_example(output_version, use_responses_api)
+    if use_responses_api:
+        reasoning_example(output_version, use_responses_api)
+        files_api_example(output_version, use_responses_api)
+        web_search_example(output_version, use_responses_api)
+        image_generation_example(output_version, use_responses_api)
+        code_interpreter_example(output_version, use_responses_api)
     return {"multimodal_openai": "complete"}

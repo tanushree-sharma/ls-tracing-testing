@@ -8,7 +8,7 @@ import { main as serverSideToolsOpenAIMain } from "./serverSideToolsOpenAI";
 import { main as streamingMain } from "./streaming";
 import { main as toolcallMain } from "./toolcall";
 
-export const langchainMain = traceable(async function langchainMain(
+export const langchainjs = traceable(async function langchainjs(
   outputVersion?: "v0" | "v1"
 ) {
   console.log("=== Running LangChain Examples ===\n");
@@ -43,5 +43,5 @@ export const langchainMain = traceable(async function langchainMain(
   console.log("\n=== All LangChain Examples Complete ===");
 });
 
-langchainMain("v1");
-export const main = langchainMain;
+langchainjs("v1");
+export const main = langchainjs;

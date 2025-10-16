@@ -130,7 +130,6 @@ def pdf_base64_anthropic_example(output_version: str = "v1"):
         "claude-sonnet-4-20250514",
         model_provider="anthropic",
         output_version=output_version,
-        use_responses_api=True,
     )
 
     pdf_path = os.path.join(
@@ -169,7 +168,7 @@ def main(output_version: str = "v1", use_responses_api: bool = False, run_tree=N
     pdf_input_example(output_version, use_responses_api)
     if use_responses_api:
         pdf_url_example(output_version, use_responses_api)
-        return {"multimodal_messages": "complete"}
-    image_base64_anthropic_example(output_version)
-    pdf_base64_anthropic_example(output_version)
+    else:
+        image_base64_anthropic_example(output_version)
+        pdf_base64_anthropic_example(output_version)
     return {"multimodal_messages": "complete"}
