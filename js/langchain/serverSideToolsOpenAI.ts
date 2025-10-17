@@ -24,7 +24,7 @@ const webSearch = traceable(async function webSearch(oai: ChatOpenAI) {
     content: [
       {
         type: "text",
-        text: "When is Lincoln's birthday?",
+        text: "When is Lincoln's birthday? Use the web search tool to find the information.",
       },
     ],
   });
@@ -39,7 +39,7 @@ const codeExecution = traceable(async function codeExecution(oai: ChatOpenAI) {
     content: [
       {
         type: "text",
-        text: "Calculate the sum of [1, 2, 3, 4, 5]",
+        text: "Calculate the sum of [1, 2, 3, 4, 5] using the code interpreter tool.",
       },
     ],
   });
@@ -56,7 +56,7 @@ export const main = traceable(async function serverSideToolsOpenAIMain(
     model: "gpt-5-2025-08-07",
     outputVersion: outputVersion || "v1",
   });
-  await generateImage(oai);
+  // await generateImage(oai);
   await webSearch(oai);
   await codeExecution(oai);
 });
